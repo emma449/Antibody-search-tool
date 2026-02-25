@@ -597,7 +597,6 @@ class AntibodyToJSON:
         colon_count = record.count(':')
         if colon_count>1:
             record = record.replace(':', ',', 1)
-            print(record)
         key, value = record.split(":", 1)
 
         if "[" not in key:
@@ -610,7 +609,6 @@ class AntibodyToJSON:
             connections = [{"A": int(c.split("-")[0]), "B": int(c.split("-")[1])} for c in value]
             self.antibody_ann_dict[key] = [{"Bonds": connections}]
             return None
-        print(f'key: {key}')
         dis_record = key.split("[")[1][:-1]
         print(f'dis_record: {dis_record}')
         if ":" in dis_record:
@@ -739,12 +737,16 @@ class AntibodyToJSON:
             self.antibody_ann_dict[name_key].append(data)
 
     def normal_record(self, record):
-        key, value = record.split(":", 1)
-        if "[" in key:
-            self.any_instance_record(record)
+        print(f'record: {record}')
+        if ":" in record:
+            key, value = record.split(":", 1)
+            if "[" in key:
+                self.any_instance_record(record)
+            else:
+                value = value.strip()
+                self.antibody_ann_dict[key] = value
         else:
-            value = value.strip()
-            self.antibody_ann_dict[key] = value
+            value, key = record.split("in", 1)
 
 if __name__ == "__main__":
     folder_path = "/Users/emmawrenn/Downloads/sinan"
