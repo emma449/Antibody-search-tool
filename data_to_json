@@ -749,6 +749,6 @@ class AntibodyToJSON:
             value, key = record.split("in", 1)
 
 if __name__ == "__main__":
-    folder_path = "/Users/emmawrenn/Downloads/sinan"
+    folder_path = "PATH"
     converter = AntibodyToJSON(folder_path)
     converter.make_files()
